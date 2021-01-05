@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,15 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private qrScanner: QRScanner,
+    @Inject(DOCUMENT) private document: Document) {}
 
+
+  scan(){
+    this.document.body.style.backgroundColor = 'transparent';
+
+    this.qrScanner.prepare();
+    this.qrScanner.scan();
+    this.qrScanner.resumePreview();
+  }
 }
